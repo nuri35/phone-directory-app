@@ -1,28 +1,25 @@
-// her zaman kısılerle ugrasıyoruz rrehber uygulamamızda ılk once korkma class kısıyı olustur mesela hava durumu uygulamasında   bununla ılgılı butun verılerı  hava gıbı bır sınıfın altında toplamak ısteyebılrız
 
-// unutma not ders 78 de  ılk dakılarda anlattı mantıgı o sekılde bızde o mantıkda  kişi diye bır sınıf yaptık  bu kısılerı tutan ve bunun uzerınden ıslemde yapan ekran dıye sınfımız var  aynnı sekılde ekran sınıfnın calısması ıcnı  verı tabanı ıhtıyacı varsa bızde (localstorage uzerınden yapıyoruz) oonuda farklı sınıf olarak ekran sınfına getırıp calıstırdk 
 
 
 class Kısı{
-    // new kısı(parametre gececek degerler)vs  dıyerek constructor yanı kurucu method calısıyor
+  
     constructor(ad,soyad,number,email){
         this.ad = ad;
         this.soyad = soyad;
         this.number = number;
-        this.email = email; // thıs ne anlama gelıyordu o an olusturulan kısı nesnesı yanı emre anlamına gelıyor
+        this.email = email;
     }
 }
 
 
-class Util{ // degerlerı kontrol etmek ıcıın bir class
-    static bosalankontrolet(...alanlar){ // herhangı bır constructora gerek yok dıger classlardakı gıbı yyanı kutulara özgu birşeyin yok  math.random() gıbı genel kullanıyorsun 
-       // burda kontrol edecegımız parametre sayısı cok olabılır spread operatoru kulllan 
+class Util{ 
+    static bosalankontrolet(...alanlar){ 
      let sonuc = true;
         alanlar.forEach(alan=>{
             
-            if(alan.length === 0){// truthy falsely dende yaapabıırdık boyle yaptım
+            if(alan.length === 0){
                 sonuc = false;
-                return false; // eger bırtane bıle boş alan varsa ıf yapısı calıscak sonuc false olcak ve return olarak false degerı calıscak gerıye false degerı donucek vve return dedıgımız ıcın dongu bıtıcek  e sonuc degerım false olaacak 
+                return false; 
             }
             
         });
@@ -30,11 +27,11 @@ class Util{ // degerlerı kontrol etmek ıcıın bir class
         return sonuc;
     }
     
-     //bzı maıl gıbı kontroller yapmak lazım
+  
     
     static mailcontrol(email){
          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase()); // true yada false degerı dondurur bana
+    return re.test(String(email).toLowerCase()); 
     }
     
     static phonecontrol(phone){
@@ -46,31 +43,29 @@ class Util{ // degerlerı kontrol etmek ıcıın bir class
 
 
 
-class Ekran{ // arayuzdekı ıslemlerım ıcın bır yapı olusturdum elemanların secımı addeventlistener atamak vs olacak burdan
-    constructor(){  // pparametreye gerek yok cunku new ekran() seklıınde dıcem sadece ordan burdakı ıslemlerımı yapıcam yanı burda ekranı başka bir ekrandan ayırıcak bırsey yok const ekran2 = new ekran seklınde cagırmıcam birtane ekranım var  constrouctor dıyerek tetıklenerek burda dom elemanlarını secebırırlız ekran2 = new ekran dersem 2.cı kutu olusur bellekte orda burdakı ıslemler yapmıs olursun 2.kutudan ulaşmıs olursun ad soyad elemanlarına mısal ama 1 tane ekran alanım vaar o yuzden 2 ayrı kutu olusturup 2 ayrı ad soyad vs tutmucam  o yüzdenn buraya parametre gecmedık
+class Ekran{ 
+    constructor(){  
         
         this.ad = document.querySelector(".ad");
          this.soyad = document.querySelector(".soyad");
         this.number = document.querySelector(".number");
              this.email = document.querySelector(".email");
              this.secilnsatır = undefined;  
-        // bind(this) demmemızın seebebı
+     
         this.form = document.querySelector(".formrehber");
-        //  this.form aslında formrehber oluyor
+      
         this.form.addEventListener("submit", this.kaydetguncelle.bind(this));
-        // ekleme yapma yerı ıcın submıt olunca kaydetgncelle fonksıyonu calısr dedık ama  veya sayfa yuklenınce ekran sınfı cagırıyoruz tetıklenıyor ama hata alırız kaydetguncelle global fonksıyon  degıl nerde tanımlı ekran sınıfı ıcınde  yanı ekran sınfını tetıklendıgınde thıssız kullanırsak kaydetguncelle ıs not defıned der nabcaz this diyerek bu sınıfta bulunan kaydetguncelleyı calıstır dıcez 
+      
         
                 this.kısılıstem =  document.querySelector(".kısılıstem");
-        //***aslında this kısılıstem suan tıklandıgında kısılıstemde guncellveyasıl fonksıyonunu cagırıyor olmadıgı ıcın hata verıyor bınd(thıs)  dıyerek bu screen sınıfnı kullan dıyorum bınevı dolayısıyla  this.guncelleveyasıl dakı thıs screenı baz alıyor screendada guncelleveyasıl oldugu ıcın clıck olunca calısmıs oluyor
-     this.kısılıstem.addEventListener("click",this.guncelleveyasıl.bind(this)); // thıs dıyerek bu sınıfın ıcınde bulunan bu guncelleveyasıl fonksıyonunu calıstırır. bu fonksıyonu yapmamızın sebebı sılccekmı yoksaa guncellıcekmı buna karar verıyoruz bind yazmassak   this.guncelleveyasıl neyı algılıyor  tıkladıgımda bana this.kisilistemden dolayı guncelleveyasıl ıcınde consolelog ıle thise bakarsak tbody verıyor bind ile yazarsak consolelogla thıs dersek fonksıyon ıcınde ekran sınfını verır bize bu ekran nesnesıın ıcınde bulunan fonksıyonu verır daha sonra dolayısıyla artık ekran sınfındayım ve this.guncelleveyasıl.bind(this) dıyerek ekran sınfında guncelleveyasıl calıstır dıyoruz thıs cok degıskenlıdır.
+      
+     this.kısılıstem.addEventListener("click",this.guncelleveyasıl.bind(this));
         
             this.upıns =  document.querySelector(".upıns");
-        //ornegın ekranda bırseylerın gorunmesı ıcın depo nesnesınde bulunan ornegın kısıekle localdekının ekranda okunması ıcın vs fonksıyonunu cagırsın bunun ıcın depoyu burda yazdık 
-        this.depo = new Depo(); // ne demek bu ne zamankı buraya erısılcek  git yenı depo nesnesı olustur. artık bu yapı uzerınden this.depo() diyip  git baana butun kısılerı getır dıyebılrım aslında depo sınıfım verıtabanında yada localstroageımızda veya apimle ilgili genel ıslemlerı yapan sınıf oldu cunku  uygulamada ıslemler 2 farklı yolla oluyor  1.cısı ekrandaki lısteye bırseylerın atılması  veya butun degerlerın burda tutulması  2.cisi  bunların kalıcı olarak localstroageda tutulması
+      
+        this.depo = new Depo(); 
         
-        //depoyu ekranda cagırmamız lazımkı ekranda bırseylerı gostercez 
-        
-        this.ekranaolandegeryazdır(); // localstragedekı degerlerımı okucak ılk ekran acıldıgında yanı
+        this.ekranaolandegeryazdır(); 
         
     }
     
@@ -324,76 +319,50 @@ class Ekran{ // arayuzdekı ıslemlerım ıcın bır yapı olusturdum elemanlar�
 
 
 
-class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynagından cekılcektı sırf bu ıslemler
-    //  veya local stroagedan yapıyoruz bunun ıcın bır sınıf olusturduk 
-  
-    // // bir depo kaynagı yanı ılerlede bunun kullanılmasını ıstıyorsak
-    // //her bir veri tipinin mesela apiden cekıyorsak bir linki vardır  bunu buraya parametre olarak gecmek
-    //  ıstıyebılrsınız veritabanıysa connection stringi vardır onu gecmek ıstıyebılrısnız  ozman buraya ılk
-    //   once constructor tanımlayalım 
+class Depo{ 
     
-     constructor(){ // tanımlandıgında gereklı olan degerler  burda yer alsın
-         this.tumkısıler = this.verılerıgetır();// local stragedan cekıyoz verılerı ayrcaa parametreyede
-    //       gerek yok depoyu parametresız calıstırdıgmızda burası tetıklenecek 
-    //    //  this.tumkısıler = []; // baska zaman verı tabanı vs kullandıgmızda this. baglantınoktası 
-    //    felan buraya yazılabılır ozman yanı ben bunu  ne zmaan kullancam , ozman mutlaka bu depoyu  neww 
-    //    dıyerek olusturmam gerekıyor
+     constructor(){ 
+         this.tumkısıler = this.verılerıgetır();
          
-    }//her depo dedıgımızde bıızım constructor tetıklenmıs olucaktır
+    }
  
     
-    
-    // //sıstemde belkı aynı emaıl adresı var onu kontrol et bunu neden depoda yapıyorz cunku burda
-    //  arrayde depoluyoruz localstoragede yanı 
-    
+
     emaılunıq(email){
      const son =   this.tumkısıler.find((kisi)=>{
             
-            return kisi.email === email; // eger kısıyı bulursa yanı o an gezılen arraydekı emaılle kullanıcının ınputtan gırdıgı deger arayıp eger bulursa true doner  eger yoksa undefıned var 
+            return kisi.email === email; 
             
         });
         
         
-        if(son){ //true donerse demekkı maılı kullanan bırı var yoksa undefıned calısır yanı else calısır
-            return false ; // false dondurcez demekkı var 
+        if(son){ 
+            return false ; 
         }else{
-            return true ; // true dondurcez demekkı yok 
+            return true ; 
         }
-        // bu fonksıyonu depoda kısıekle kısmındada eklıyebıblrısn
+       
     }
     
     
-     // uygulamala ılk acıldıgında  verıler getırılır mesela verı tabanına gıdıp ceker ordan 
-    //   bunun yapmanın guzellıgı ertesı gun local stroage deglde apı veya verı tabanı kullancagım zaman
-    //    sadece burayı degıstırıcez  ıcerdekı ekran veya kısının bundan haberı olmucak
-    
-    verılerıgetır(){ //localokuma alanı aslıda burası
-        //localstroage yapımı
+    verılerıgetır(){ 
+ 
       let tumkısılerlocal;  
         if(localStorage.getItem('tumkısıler') === null){
            tumkısılerlocal = [];  
            
            }else{
              tumkısılerlocal = JSON.parse(localStorage.getItem('tumkısıler')); 
-              //neden json.parse yapıyrum cunku json formatında bır strıng var e zaten local strageye
-            //    array yazamam onun ıcın json formatında bır strıng bunun uzerınden ıslem yapabılmem ıcın 
-            //    json.parse dıyorum yanı javascripte cevırıyorum sonra tumkısılerlocale atıyorum sonra push
-            //     vs ıslemler sonra gıne strıngfya donusturuyorum ama gunun sonunda array goruncek local 
-            //     stragede ama array kaabul etmedıgı ıcın json formatında strıngfy yazıyorum
+            
            }
-        // bu sınıfta bulunan tumkısılere tumkısılerı atadık
+     
         this.tumkısıler = tumkısılerlocal;
         return tumkısılerlocal;
     }
         
- // sımdı benım ekran sınfımın depoyla herhangı bır baglantısı varmı yok bırbırlerını bılmıyor baglantı
-//   kurarız ekran sınfında ozaman   
-    
-//     // bunun yanında localstorage verıtabanına vs ekleyecegımz fonkksıyonu yapıyoruz kısıekle
-//      fonksıyonu yapıyoruz
-   
+ 
    kısıekle(kısı){ 
-     //bakılacak burya
+  
        
        if(this.emaılunıq(kısı.email)){ 
      
@@ -401,10 +370,10 @@ class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynag�
        
        
     
-       localStorage.setItem("tumkısıler",JSON.stringify(this.tumkısıler));//json turunde bır strıngfy cevırmem lazım normal array kabul etmıyor local strage 
+       localStorage.setItem("tumkısıler",JSON.stringify(this.tumkısıler));
        
      
-           return true; // bunları ekran sınfında mesaj ıcın kullanabılrım
+           return true; 
            
            
           }else{
@@ -414,23 +383,19 @@ class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynag�
        
    
    }
-    //ornegın sılmek ıcın ılk once verıtabanından sılme ıslemı olmalı yanı burdan sonra ekranda olması gereken bır ıslem olmalı onua ekran sınfında tnaımlarsın o yapıyı
+  
     
-   kisisil(mail){ // verıtabanından yada localstrageden sılecek verılerıımızı onunla ılgılı fonksıyon
+   kisisil(mail){ 
        
-       // gıdıcek localstrage verdıgımz maıle gore  kisiyi bulup sılcek  parametre olarak maıl dedık bunun ekranla hıc alakası yok mail parametresı olarak silinicek kişi olmus oluyor onuda yukarda ekrandansıl fonksıyonunda deger olaarak alıyoruz 
-        
-     // şimdi bak ilk önce depo ılk calısıtrıldıgında this.tumkısılerdekı karısıdnakı fonksıyon calsııyor o fonksıyondada return olarak tumkııslerlocal var yanı ıcındekı kısıler var aslında sonuc olarak this.tumkısılerde localdeki kişiler var kısıekle yaptıgımızda ordakı koda göre tumkısılerlocale eklenmıs oluyor sonuc olarak kısıekle fonksıyonunda bırdaha localolustur felan gerek yok
-       
-       // pekı kısıyı sılceksem localstrage yada verıtabanına bırdaha gıtmeme gerek yok  this.tumkısıler ıcersınde  zaten push ettıgın kadar eleman var bunun uzerınden ıslem yapabılrım 
+     
        
        this.tumkısıler.forEach((kisi,index) =>{
-           // o an gezılen kisinin maıl adresı esıtse parametredekı maıle 
+       
            if(kisi.email === mail){
                this.tumkısıler.splice(index,1);
                
            } 
-           //tekrardan localsstragemıza eklıyoruz
+        
            
        });
                               
@@ -440,18 +405,18 @@ class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynag�
        
    }
     
-    kısıguncelle(newkısı,mail){ //newkısı yenı maıl adresı mail parametresı ıse localstragede bulunması gereken maıl adresı
+    kısıguncelle(newkısı,mail){ 
         
          if(this.emaılunıq(newkısı.email)){ 
          
           this.tumkısıler.forEach((kisi,index) =>{
-           // o an gezılen kisinin maıl adresı esıtse parametredekı maıle 
+        
            if(kisi.email === mail){
                this.tumkısıler[index] = newkısı;
                  localStorage.setItem("tumkısıler",JSON.stringify(this.tumkısıler)); 
                  return true;
            } 
-           //tekrardan localsstragemıza eklıyoruz
+     
            
        });
                               
@@ -468,7 +433,7 @@ class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynag�
                           
        
         
-    }//yukarda ekran sınfında new depo dıye cagrıldıgına bu fonksıyonlara ulasabılır bunlar constructor dısında kı zaten bu fonksıyonlara ulaşmamız lazım her new depoda  hangısını kullanmaya ıhtıyacımız varsa elbet lazım olacak
+    }
     
     
     
@@ -480,7 +445,7 @@ class Depo{ // gercek bır uygulama yapsaydık verı taanından yada apı kynag�
 
 
 document.addEventListener("DOMContentLoaded",function(e){
-    // buutun ekran yuklendıkten sonra gıt ekran sınfıından yenı bır obje olustur yanı ekran snıfndakı constructor tetıklenecektır
+  
     
     const ekran = new Ekran();
 });
